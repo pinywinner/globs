@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מדד המותגים 2025 - דשבורד דינמי</title>
+    <title>מדד המותגים 2025 - דשבורד דינמי V2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -15,8 +15,8 @@
         body {
             font-family: 'Assistant', sans-serif;
             scroll-behavior: smooth;
-            background-color: #f4f4f5; /* zinc-100 */
-            color: #18181b; /* zinc-900 */
+            background-color: #f8fafc; /* slate-50 */
+            color: #020617; /* slate-950 */
         }
         .chart-container {
             position: relative;
@@ -24,436 +24,345 @@
             width: 100%;
         }
         .card {
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border: 1px solid #e4e4e7; /* zinc-200 */
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0; /* slate-200 */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
         }
         .card:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
         }
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
         }
-        ::-webkit-scrollbar-track {
-            background: #e4e4e7; /* zinc-200 */
+        .nav-link.active {
+            border-bottom-color: #4f46e5; /* indigo-600 */
+            color: #4f46e5;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #a1a1aa; /* zinc-400 */
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #71717a; /* zinc-500 */
-        }
-        #searchInput, #categorySelector {
-            background-color: #ffffff;
-            border-color: #d4d4d8; /* zinc-300 */
-            color: #18181b; /* zinc-900 */
-        }
-        #searchInput::placeholder {
-            color: #71717a; /* zinc-500 */
+        .nav-link:hover {
+            color: #4f46e5;
         }
         .animated-element {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
         }
     </style>
 </head>
-<body class="bg-zinc-100 text-zinc-900">
-
-    <!-- 
-    Strategy Brief:
-    - Core Thesis: מדד המותגים 2025 חושף כי נאמנות הצרכן הישראלי נטועה במותגים ותיקים ומקומיים לצד אימוץ כלים טכנולוגיים גלובליים, בעוד קטגוריות שירות מסורתיות מתקשות לזכות באמון הציבור.
-    - Design Concept: "Kinetic Data Narrative". עיצוב דינמי, מודרני ורספונסיבי לחלוטין. משתמש בטיפוגרפיה חזקה, אנימציות מבוססות גלילה (Scrollytelling) ופריסה חדשנית (המרת טבלה לכרטיסיות במובייל) כדי להפוך את הצגת הנתונים לחוויה אינטראקטיבית ומרתקת.
-    - Color Palette:
-        - רקע_ראשי: #f4f4f5 (zinc-100)
-        - טקסט_ראשי: #18181b (zinc-900)
-        - טקסט_משני: #52525b (zinc-600)
-        - הדגשה_ראשית (CTA): #2563eb (blue-600)
-        - הדגשה_משנית: #ea580c (orange-600)
-        - גבול_מפריד: #e4e4e7 (zinc-200)
-    - Success Metrics: המשתמש יחווה את המידע בצורה מרתקת, יבין את הדירוגים והמגמות בקלות בכל מכשיר, וירגיש שהוצגה לו תמונה שלמה, מלוטשת וחדשנית של מדד המותגים.
-    -->
+<body class="bg-slate-50 text-slate-950">
 
     <div class="container mx-auto p-4 md:p-8 overflow-x-hidden">
         
-        <!-- Header -->
-        <header class="text-center mb-16 animated-element">
-            <h1 class="text-5xl md:text-7xl font-extrabold text-blue-600 mb-4">מדד המותגים 2025</h1>
-            <p class="text-xl text-zinc-600 max-w-3xl mx-auto">מפת הכוח של הכלכלה הישראלית: ניתוח ויזואלי של 100 המותגים המובילים על בסיס סקר מקיף.</p>
+        <header class="text-center my-12 animated-element">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-indigo-600 mb-4">מדד המותגים 2025</h1>
+            <p class="text-xl text-slate-600 max-w-3xl mx-auto">מפת הכוח של הכלכלה הישראלית: ניתוח ויזואלי של 100 המותגים המובילים.</p>
         </header>
 
-        <!-- Top 5 Brands Highlights -->
-        <section class="mb-20">
-            <h2 class="text-4xl font-bold text-center mb-10 text-zinc-800 animated-element">החמישייה הפותחת</h2>
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
-                <div class="card p-6 rounded-2xl md:col-span-2 animated-element">
-                    <div class="text-7xl font-extrabold text-amber-500">1</div>
-                    <div class="text-3xl font-bold mt-2 text-zinc-900">Waze</div>
-                    <div class="text-md text-zinc-500">אפליקציות ושירותים</div>
-                </div>
-                <div class="card p-6 rounded-2xl md:col-span-3 animated-element">
-                    <div class="text-7xl font-extrabold text-zinc-400">2</div>
-                    <div class="text-3xl font-bold mt-2 text-zinc-900">WhatsApp</div>
-                    <div class="text-md text-zinc-500">רשתות חברתיות</div>
-                </div>
-                <div class="card p-6 rounded-2xl md:col-span-3 animated-element">
-                    <div class="text-7xl font-extrabold text-orange-500">3</div>
-                    <div class="text-3xl font-bold mt-2 text-zinc-900">Google</div>
-                    <div class="text-md text-zinc-500">רשתות חברתיות</div>
-                </div>
-                <div class="card p-6 rounded-2xl md:col-span-2 animated-element">
-                    <div class="text-7xl font-extrabold text-blue-500">4</div>
-                    <div class="text-3xl font-bold mt-2 text-zinc-900">במבה</div>
-                    <div class="text-md text-zinc-500">מזון ומשקאות</div>
-                </div>
-                 <div class="card p-6 rounded-2xl md:col-span-5 animated-element">
-                    <div class="text-7xl font-extrabold text-green-500">5</div>
-                    <div class="text-3xl font-bold mt-2 text-zinc-900">Google Maps</div>
-                    <div class="text-md text-zinc-500">אפליקציות ושירותים</div>
-                </div>
+        <nav class="sticky top-0 bg-white/80 backdrop-blur-lg z-10 mb-12 rounded-xl shadow-sm border border-slate-200 animated-element">
+            <div class="flex justify-center items-center space-x-4 md:space-x-8 p-4">
+                <a href="#analysis" class="nav-link text-lg font-semibold text-slate-700 pb-2">ניתוח כללי</a>
+                <a href="#conclusions" class="nav-link text-lg font-semibold text-slate-700 pb-2">מסקנות אסטרטגיות</a>
+                <a href="#full-list" class="nav-link text-lg font-semibold text-slate-700 pb-2">הרשימה המלאה</a>
             </div>
-        </section>
-        
-        <!-- Category Analysis -->
-        <section class="card p-6 md:p-8 rounded-2xl animated-element mb-20">
-            <h2 class="text-4xl font-bold mb-6 text-zinc-800 text-center">ניתוח קטגוריות</h2>
-            <p class="mb-6 text-zinc-600 text-center max-w-xl mx-auto">בחר קטגוריה כדי לראות את דירוג המותגים המובילים בה.</p>
-            <div class="max-w-md mx-auto">
-                <select id="categorySelector" class="w-full p-3 border rounded-lg mb-6 focus:ring-2 focus:ring-blue-500">
-                    <option value="משרדי פרסום">משרדי פרסום</option>
-                    <option value="רכב">רכב</option>
-                    <option value="בנקאות">בנקאות</option>
-                    <option value="יצרני מזון">יצרני מזון</option>
-                    <option value="רשתות מזון">רשתות מזון</option>
-                    <option value="אופנה והנעלה">אופנה והנעלה</option>
-                    <option value="ספקי תקשורת">ספקי תקשורת</option>
-                    <option value="עיצוב הבית">עיצוב הבית</option>
-                    <option value="נדלן">נדל"ן</option>
-                </select>
-            </div>
-            <div class="chart-container">
-                <canvas id="categoryChart"></canvas>
-            </div>
-        </section>
+        </nav>
 
-        <!-- Creatives Gallery -->
-        <section class="mt-20">
-            <h2 class="text-4xl font-bold text-center mb-10 text-zinc-800 animated-element">קריאייטיבים נבחרים</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card rounded-2xl overflow-hidden animated-element">
-                    <img src="https://placehold.co/600x400/EBF8FF/3182CE?text=פרסומת+העשור+של+בזק" alt="פרסומת העשור של בזק" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="font-bold text-lg text-zinc-800">פרסומת העשור: בזק</h3>
-                        <p class="text-sm text-zinc-500 mt-1">"עוץ לי גוץ לי" עם גידי גוב ועומר אדם.</p>
+        <main>
+            <section id="analysis" class="space-y-16">
+                <div class="animated-element">
+                    <h2 class="text-4xl font-bold text-center mb-10 text-slate-800">החמישייה הפותחת</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-6 text-center">
+                         <div class="card p-6 rounded-2xl md:col-span-2">
+                            <div class="text-7xl font-extrabold text-amber-500">1</div>
+                            <div class="text-3xl font-bold mt-2 text-slate-900">Waze</div>
+                            <div class="text-md text-slate-500">אפליקציות ושירותים</div>
+                        </div>
+                        <div class="card p-6 rounded-2xl md:col-span-3">
+                            <div class="text-7xl font-extrabold text-slate-400">2</div>
+                            <div class="text-3xl font-bold mt-2 text-slate-900">WhatsApp</div>
+                            <div class="text-md text-slate-500">רשתות חברתיות</div>
+                        </div>
+                        <div class="card p-6 rounded-2xl md:col-span-3">
+                            <div class="text-7xl font-extrabold text-orange-500">3</div>
+                            <div class="text-3xl font-bold mt-2 text-slate-900">Google</div>
+                            <div class="text-md text-slate-500">רשתות חברתיות</div>
+                        </div>
+                        <div class="card p-6 rounded-2xl md:col-span-2">
+                            <div class="text-7xl font-extrabold text-blue-500">4</div>
+                            <div class="text-3xl font-bold mt-2 text-slate-900">במבה</div>
+                            <div class="text-md text-slate-500">מזון ומשקאות</div>
+                        </div>
+                         <div class="card p-6 rounded-2xl md:col-span-5">
+                            <div class="text-7xl font-extrabold text-green-500">5</div>
+                            <div class="text-3xl font-bold mt-2 text-slate-900">Google Maps</div>
+                            <div class="text-md text-slate-500">אפליקציות ושירותים</div>
+                        </div>
                     </div>
                 </div>
-                <div class="card rounded-2xl overflow-hidden animated-element">
-                    <img src="https://placehold.co/600x400/FEFBF6/DD6B20?text=מייסדי+WIZ" alt="מייסדי WIZ" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="font-bold text-lg text-zinc-800">האקזיט של WIZ</h3>
-                        <p class="text-sm text-zinc-500 mt-1">מיתוג שתרם לאקזיט של 32 מיליארד דולר.</p>
-                    </div>
-                </div>
-                <div class="card rounded-2xl overflow-hidden animated-element">
-                    <img src="https://placehold.co/600x400/F0FFF4/38A169?text=סת+גודין" alt="סת גודין" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="font-bold text-lg text-zinc-800">גורו השיווק: סת' גודין</h3>
-                        <p class="text-sm text-zinc-500 mt-1">"מותגים מצליחים כי הם עושים משהו ששווה לדבר עליו".</p>
-                    </div>
-                </div>
-                <div class="card rounded-2xl overflow-hidden animated-element">
-                    <img src="https://placehold.co/600x400/FFF5F7/D53F8C?text=לגו+למבוגרים" alt="לגו למבוגרים" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="font-bold text-lg text-zinc-800">המהפך של לגו</h3>
-                        <p class="text-sm text-zinc-500 mt-1">איך מותג ילדים המציא את עצמו מחדש ופנה לקהל מבוגר.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Key Insights -->
-        <section class="mt-20">
-            <h2 class="text-4xl font-bold text-center mb-10 text-zinc-800 animated-element">תובנות מרכזיות וניתוחים</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-3 text-blue-600">סיכום ומסקנות</h3>
-                    <ul class="list-disc list-inside space-y-2 text-zinc-700">
-                        <li>דומיננטיות טכנולוגית בחיי היום-יום.</li>
-                        <li>כוחם של מותגי מזון מקומיים ונוסטלגיה.</li>
-                        <li>גרעון אמון במגזר השירותים (בנקים, ביטוח).</li>
-                        <li>חדירה משמעותית של מותגים מסין (רכב, אונליין).</li>
-                        <li>הציבור אוהב את המוצר, לא תמיד את החברה.</li>
-                    </ul>
+                <div class="card p-6 md:p-8 rounded-2xl animated-element">
+                    <h2 class="text-4xl font-bold mb-6 text-slate-800 text-center">ניתוח קטגוריות</h2>
+                    <div class="max-w-md mx-auto">
+                        <select id="categorySelector" class="w-full p-3 border rounded-lg mb-6 focus:ring-2 focus:ring-indigo-500">
+                             <option value="משרדי פרסום">משרדי פרסום</option>
+                             <option value="רכב">רכב</option>
+                             <option value="בנקאות">בנקאות</option>
+                             <option value="יצרני מזון">יצרני מזון</option>
+                             <option value="רשתות מזון">רשתות מזון</option>
+                             <option value="אופנה והנעלה">אופנה והנעלה</option>
+                             <option value="ספקי תקשורת">ספקי תקשורת</option>
+                             <option value="עיצוב הבית">עיצוב הבית</option>
+                             <option value="נדלן">נדל"ן</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
                 </div>
-                <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-3 text-blue-600">פרסומת העשור</h3>
-                    <p class="text-zinc-700">הפרסומת "עוץ לי גוץ לי" של <span class="font-bold text-zinc-900">בזק</span>, בכיכובם של גידי גוב ועומר אדם, נבחרה לפרסומת הזכורה והאהובה ביותר בעשור האחרון, בזכות שילוב של הומור, נוסטלגיה והפקה מושקעת.</p>
-                </div>
-                <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-3 text-blue-600">המותגים הכי ישראליים</h3>
-                     <ol class="list-decimal list-inside space-y-1 font-semibold text-zinc-700">
-                        <li>אל על</li>
-                        <li>עלית</li>
-                        <li>אסם</li>
-                        <li>תנובה</li>
-                        <li>בנק הפועלים</li>
-                    </ol>
-                </div>
-                <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-3 text-blue-600">העדפות בחברה הערבית</h3>
-                    <p class="text-zinc-700 mb-2">החברה הערבית מביעה העדפה ברורה למותגי יוקרה (מרצדס, BMW) וטכנולוגיה (אפל), לצד נאמנות למותגים נגישים ובינלאומיים. המותגים המובילים: Waze, WhatsApp ו-YouTube.</p>
-                </div>
-            </div>
-        </section>
 
-        <!-- NEW SECTION: Strategic & Creative Conclusions -->
-        <section class="mt-20">
-            <h2 class="text-4xl font-bold text-center mb-4 text-zinc-800 animated-element">מסקנות אסטרטגיות וקריאייטיביות</h2>
-            <p class="text-center text-lg text-zinc-600 max-w-3xl mx-auto mb-10 animated-element">
-                ניתוח המגמות העמוקות שמעצבות את התודעה הצרכנית, ויישום קריאייטיבי מעשי עם רעיונות לקמפיינים מותאמים.
-            </p>
-            <div class="space-y-6">
-                <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-2 text-blue-600">1. נוסטלגיה וחיבור רגשי הם המנוע החזק ביותר</h3>
-                    <p class="text-zinc-700 mb-3">מותגים כמו במבה (מקום 4), שוקולד פרה (11), ובזק עם קמפיין "עוץ לי גוץ לי" מראים שהרגש גובר על הרעש. הקהל מחפש חום, שייכות וביטחון במה שכבר מוכר לו.</p>
-                    <p class="text-sm bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500"><span class="font-semibold">קריאייטיב לדוגמה:</span> "הפוליסה של סבתא" – קמפיין לחברת ביטוח שמציג סבים וסבתות ישראלים המספרים על הערכים החשובים בחיים. ביטוח כמעשה המשכי של דאגה בין-דורית.</p>
+                <div class="animated-element">
+                    <h2 class="text-4xl font-bold text-center mb-10 text-slate-800">קריאייטיבים נבחרים</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="card rounded-2xl overflow-hidden">
+                             <img src="https://placehold.co/600x400/EBF8FF/3182CE?text=פרסומת+העשור+של+בזק" alt="פרסומת העשור של בזק" class="w-full h-48 object-cover">
+                             <div class="p-5">
+                                 <h3 class="font-bold text-lg text-slate-800">פרסומת העשור: בזק</h3>
+                                 <p class="text-sm text-slate-500 mt-1">"עוץ לי גוץ לי" עם גידי גוב ועומר אדם.</p>
+                             </div>
+                         </div>
+                         <div class="card rounded-2xl overflow-hidden">
+                             <img src="https://placehold.co/600x400/FEFBF6/DD6B20?text=מייסדי+WIZ" alt="מייסדי WIZ" class="w-full h-48 object-cover">
+                             <div class="p-5">
+                                 <h3 class="font-bold text-lg text-slate-800">האקזיט של WIZ</h3>
+                                 <p class="text-sm text-slate-500 mt-1">מיתוג שתרם לאקזיט של 32 מיליארד דולר.</p>
+                             </div>
+                         </div>
+                         <div class="card rounded-2xl overflow-hidden">
+                             <img src="https://placehold.co/600x400/F0FFF4/38A169?text=סת+גודין" alt="סת גודין" class="w-full h-48 object-cover">
+                             <div class="p-5">
+                                 <h3 class="font-bold text-lg text-slate-800">גורו השיווק: סת' גודין</h3>
+                                 <p class="text-sm text-slate-500 mt-1">"מותגים מצליחים כי הם עושים משהו ששווה לדבר עליו".</p>
+                             </div>
+                         </div>
+                         <div class="card rounded-2xl overflow-hidden">
+                             <img src="https://placehold.co/600x400/FFF5F7/D53F8C?text=לגו+למבוגרים" alt="לגו למבוגרים" class="w-full h-48 object-cover">
+                             <div class="p-5">
+                                 <h3 class="font-bold text-lg text-slate-800">המהפך של לגו</h3>
+                                 <p class="text-sm text-slate-500 mt-1">איך מותג ילדים המציא את עצמו מחדש ופנה לקהל מבוגר.</p>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="animated-element">
+                     <h2 class="text-4xl font-bold text-center mb-10 text-slate-800">תובנות מרכזיות וניתוחים</h2>
+                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                         <div class="card p-6 rounded-2xl">
+                             <h3 class="text-xl font-bold mb-3 text-indigo-600">סיכום ומסקנות</h3>
+                             <ul class="list-disc list-inside space-y-2 text-slate-700">
+                                 <li>דומיננטיות טכנולוגית בחיי היום-יום.</li>
+                                 <li>כוחם של מותגי מזון מקומיים ונוסטלגיה.</li>
+                                 <li>גרעון אמון במגזר השירותים (בנקים, ביטוח).</li>
+                                 <li>חדירה משמעותית של מותגים מסין (רכב, אונליין).</li>
+                                 <li>הציבור אוהב את המוצר, לא תמיד את החברה.</li>
+                             </ul>
+                         </div>
+                         <div class="card p-6 rounded-2xl">
+                             <h3 class="text-xl font-bold mb-3 text-indigo-600">פרסומת העשור</h3>
+                             <p class="text-slate-700">הפרסומת "עוץ לי גוץ לי" של <span class="font-bold text-slate-900">בזק</span>, בכיכובם של גידי גוב ועומר אדם, נבחרה לפרסומת הזכורה והאהובה ביותר בעשור האחרון.</p>
+                         </div>
+                         <div class="card p-6 rounded-2xl">
+                             <h3 class="text-xl font-bold mb-3 text-indigo-600">המותגים הכי ישראליים</h3>
+                              <ol class="list-decimal list-inside space-y-1 font-semibold text-slate-700">
+                                 <li>אל על</li>
+                                 <li>עלית</li>
+                                 <li>אסם</li>
+                                 <li>תנובה</li>
+                                 <li>בנק הפועלים</li>
+                             </ol>
+                         </div>
+                         <div class="card p-6 rounded-2xl">
+                             <h3 class="text-xl font-bold mb-3 text-indigo-600">העדפות בחברה הערבית</h3>
+                             <p class="text-slate-700 mb-2">החברה הערבית מביעה העדפה ברורה למותגי יוקרה (מרצדס, BMW) וטכנולוגיה (אפל), לצד נאמנות למותגים נגישים ובינלאומיים.</p>
+                         </div>
+                     </div>
+                </div>
+            </section>
+
+            <section id="conclusions" class="space-y-6 mt-20">
+                 <div class="animated-element">
+                    <h2 class="text-4xl font-bold text-center mb-4 text-slate-800">מסקנות אסטרטגיות וקריאייטיביות</h2>
+                    <p class="text-center text-lg text-slate-600 max-w-3xl mx-auto mb-10">
+                        ניתוח המגמות העמוקות שמעצבות את התודעה הצרכנית, ויישום קריאייטיבי מעשי.
+                    </p>
                 </div>
                 <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-2 text-blue-600">2. אותנטיות וערך אמיתי מנצחים תקציבי ענק</h3>
-                    <p class="text-zinc-700 mb-3">הבנקים מדורגים נמוך במדד למרות השקעות עתק בפרסום. הקהל לא קונה הצגות. לעומת זאת, מהלכים ערכיים אמיתיים (כמו AXA בצרפת) נחרטים בזיכרון.</p>
-                    <p class="text-sm bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500"><span class="font-semibold">קריאייטיב לדוגמה:</span> "תשאירו תווית" – רשת אופנה שאוספת בגדים יד שנייה מהקהל, מצרפת סיפור אישי לכל פריט ומוכרת מחדש בחנות ייעודית. הכנסות לעמותות. מוכיח מחויבות אמיתית.</p>
+                    <h3 class="text-xl font-bold mb-2 text-indigo-600">1. נוסטלגיה וחיבור רגשי הם המנוע החזק ביותר</h3>
+                    <p class="text-slate-700 mb-3">מותגים כמו במבה (4) ושוקולד פרה (11) מראים שהרגש גובר על הרעש. הקהל מחפש חום, שייכות וביטחון במה שכבר מוכר לו.</p>
+                    <p class="text-sm bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-500"><span class="font-semibold">קריאייטיב לדוגמה:</span> "הפוליסה של סבתא" – קמפיין לחברת ביטוח שמציג דאגה בין-דורית.</p>
                 </div>
-                 <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-2 text-blue-600">3. הקהילה היא השגרירה הטובה ביותר</h3>
-                    <p class="text-zinc-700 mb-3">סיפורי הצלחה כמו Spotify Wrapped או רקסהאם מוכיחים: כשאתה חלק ממשהו – אתה משתף. מותגים שמייצרים חוויות קהילתיות זוכים לנאמנות בלתי ניתנת לרכישה.</p>
-                    <p class="text-sm bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500"><span class="font-semibold">קריאייטיב לדוגמה:</span> "הבר השכונתי של ישראל" – מותג בירה שמאמץ ברים קטנים, משפץ, חוגג ומזמין את הקהילה לבלות מחדש.</p>
-                </div>
-                 <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-2 text-blue-600">4. חדשנות היא בחוויה, לא רק במוצר</h3>
-                    <p class="text-zinc-700 mb-3">מהלכים מבריקים כמו הדמיית הריהוט של IKEA או אריזות האופניים של VanMoof מוכיחים: לקוחות זוכרים הפתעה, פתרון חכם, או רגש.</p>
-                    <p class="text-sm bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500"><span class="font-semibold">קריאייטיב לדוגמה:</span> "הפתעה בדלת" – חברת שליחויות שמוסיפה לכל משלוח הפתעה קטנה (שובר, בדיחה, זרעי תבלין). מחזק את הקשר ומעלה חיוך.</p>
-                </div>
-                 <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-2 text-blue-600">5. גמישות תרבותית ותגובה מיידית = זהב דיגיטלי</h3>
-                    <p class="text-zinc-700 mb-3">מותגים כמו Heinz (שקפצה על הטרנד של טיילור סוויפט) ו"שוקולד דובאי" מראים שתגובה מהירה לשיחה הציבורית שווה יותר מאלף ג'ינגלים.</p>
-                    <p class="text-sm bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500"><span class="font-semibold">קריאייטיב לדוגמה:</span> "ערכת הפסטה הוויראלית" – רשת סופר מזהה טרנד בטיקטוק, משיקה ערכה מותאמת תוך 24 שעות ומעלה סרטון איך להכין בבית.</p>
+                <div class="card p-6 rounded-2xl animated-element">
+                    <h3 class="text-xl font-bold mb-2 text-indigo-600">2. אותנטיות וערך אמיתי מנצחים תקציבי ענק</h3>
+                    <p class="text-slate-700 mb-3">הבנקים מדורגים נמוך למרות השקעות עתק בפרסום. הקהל לא קונה הצגות. מהלכים ערכיים אמיתיים נחרטים בזיכרון.</p>
+                    <p class="text-sm bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-500"><span class="font-semibold">קריאייטיב לדוגמה:</span> "תשאירו תווית" – רשת אופנה שאוספת בגדים יד שנייה, מצרפת סיפור אישי לכל פריט ומוכרת מחדש. מוכיח מחויבות אמיתית.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="card p-6 rounded-2xl animated-element">
-                        <h3 class="text-xl font-bold mb-2 text-blue-600">6. אמון הוא המטבע החזק ביותר</h3>
-                        <p class="text-zinc-700">מותגים לא נמדדים לפי כמות הלידים – אלא לפי תחושת הביטחון שהם נותנים לציבור. מדד המותגים מדגיש זאת שוב ושוב.</p>
+                        <h3 class="text-xl font-bold mb-2 text-indigo-600">3. הקהילה היא השגרירה</h3>
+                        <p class="text-slate-700">כשאתה חלק ממשהו – אתה משתף. מותגים שמייצרים חוויות קהילתיות זוכים לנאמנות.</p>
                     </div>
                     <div class="card p-6 rounded-2xl animated-element">
-                        <h3 class="text-xl font-bold mb-2 text-blue-600">7. מותגים ישראליים נהנים מיתרון טבעי</h3>
-                        <p class="text-zinc-700">הקהל המקומי מחפש שפה, תרבות וזהות שהוא מכיר. עבור חברת פרסום שפועלת בשוק החרדי – מדובר בנכס עוצמתי.</p>
-                    </div>
-                    <div class="card p-6 rounded-2xl animated-element">
-                        <h3 class="text-xl font-bold mb-2 text-blue-600">8. ניהול מותג זהיר במגזרים יציבים</h3>
-                        <p class="text-zinc-700">במזון, בריאות ותחבורה הקהל לא מחפש גימיקים אלא ביטחון ושירות. כאן קל לבלוט אם בונים זהות נכונה לאורך זמן.</p>
-                    </div>
-                    <div class="card p-6 rounded-2xl animated-element">
-                        <h3 class="text-xl font-bold mb-2 text-blue-600">9. משפיענים: לא כל פרצוף הוא פרזנטור</h3>
-                        <p class="text-zinc-700">קמפיינים שמבוססים על טאלנטים לא מתאימים גורמים לנזק. חובה לוודא שהפרזנטור מגלם את ערכי המותג, לא רק מייצר לייקים.</p>
+                        <h3 class="text-xl font-bold mb-2 text-indigo-600">4. חדשנות היא בחוויה</h3>
+                        <p class="text-slate-700">לקוחות זוכרים הפתעה, פתרון חכם, או רגש, כמו הדמיית הריהוט של IKEA.</p>
                     </div>
                 </div>
-                 <div class="card p-6 rounded-2xl animated-element">
-                    <h3 class="text-xl font-bold mb-2 text-blue-600">10. שינוי במדידת הצלחה – פחות הקלקות, יותר זכירות, אהדה ואמון</h3>
-                    <p class="text-zinc-700">פרסום שעובד הוא פרסום שנזכר. צריך להוביל לקוחות לחשוב במונחים של עומק והשפעה, לא רק מכירות בטווח הקצר.</p>
+                <div class="card p-6 rounded-2xl animated-element">
+                    <h3 class="text-xl font-bold mb-2 text-indigo-600">5. גמישות תרבותית ותגובה מיידית = זהב דיגיטלי</h3>
+                    <p class="text-slate-700">תגובה מהירה לשיחה הציבורית (כמו "שוקולד דובאי") שווה יותר מאלף ג'ינגלים.</p>
+                    <p class="text-sm bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-500"><span class="font-semibold">קריאייטיב לדוגמה:</span> "ערכת הפסטה הוויראלית" – רשת סופר מזהה טרנד בטיקטוק, ומשיקה ערכה מותאמת תוך 24 שעות.</p>
                 </div>
-
-                <div class="card p-6 rounded-2xl mt-6 text-center animated-element">
-                     <h3 class="text-2xl font-bold mb-2 text-blue-600">לסיכום:</h3>
-                     <p class="text-zinc-700 text-lg">צריך להוביל מהפכה בשיח הפרסומי: ממסרים מוכווני מכירה למסרים מוכווני זהות. מקמפיינים חד-פעמיים לבניית מותג ארוכת טווח. מציניות לאמת. מי שיעז לדבר כמו בן אדם – יישמע.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Full List Section (Moved to bottom) -->
-        <section class="mt-20 card p-6 md:p-8 rounded-2xl animated-element">
-            <h2 class="text-4xl font-bold mb-6 text-zinc-800">הרשימה המלאה: 100 המותגים המובילים</h2>
-            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="חיפוש מותג..." class="w-full p-3 border rounded-lg mb-6 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </section>
             
-            <!-- Desktop Table -->
-            <div class="hidden md:block max-h-[600px] overflow-y-auto">
-                <table id="brandsTable" class="w-full text-right">
-                    <thead class="bg-zinc-100 sticky top-0">
-                        <tr>
-                            <th class="p-4 font-semibold text-zinc-700">דירוג</th>
-                            <th class="p-4 font-semibold text-zinc-700">מותג</th>
-                            <th class="p-4 font-semibold text-zinc-700">קטגוריה</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Rows will be generated by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+            <section id="full-list" class="mt-20">
+                <div class="card p-6 md:p-8 rounded-2xl animated-element">
+                    <h2 class="text-4xl font-bold mb-6 text-zinc-800">הרשימה המלאה: 100 המותגים המובילים</h2>
+                    <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="חיפוש מותג..." class="w-full p-3 border rounded-lg mb-6 focus:ring-2 focus:ring-indigo-500">
+                    
+                    <!-- Desktop Table -->
+                    <div class="hidden md:block max-h-[600px] overflow-y-auto">
+                        <table id="brandsTable" class="w-full text-right">
+                            <thead class="bg-zinc-100 sticky top-0">
+                                <tr>
+                                    <th class="p-4 font-semibold text-zinc-700">דירוג</th>
+                                    <th class="p-4 font-semibold text-zinc-700">מותג</th>
+                                    <th class="p-4 font-semibold text-zinc-700">קטגוריה</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
 
-            <!-- Mobile Cards -->
-            <div id="mobileCardView" class="md:hidden space-y-3 max-h-[600px] overflow-y-auto">
-                <!-- Mobile cards will be generated by JavaScript -->
-            </div>
-        </section>
-
-
+                    <!-- Mobile Cards -->
+                    <div id="mobileCardView" class="md:hidden space-y-3 max-h-[600px] overflow-y-auto">
+                        <!-- JS Populated -->
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
 <script>
-    gsap.registerPlugin(ScrollTrigger);
+    document.addEventListener('DOMContentLoaded', () => {
+        gsap.registerPlugin(ScrollTrigger);
 
-    // Data extracted from the PDF
-    const top100Brands = [
-        { rank: 1, name: "Waze", category: "אפליקציות ושירותים" }, { rank: 2, name: "WhatsApp", category: "רשתות חברתיות" }, { rank: 3, name: "Google", category: "רשתות חברתיות" }, { rank: 4, name: "במבה", category: "מזון, משקאות וטואלטיקה" }, { rank: 5, name: "Google Maps", category: "אפליקציות ושירותים" }, { rank: 6, name: "Samsung", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 7, name: "Microsoft", category: "רשתות חברתיות" }, { rank: 8, name: "YouTube", category: "סטרימינג ומדיה" }, { rank: 9, name: "אנדרואיד", category: "מחשבים וסלולר" }, { rank: 10, name: "טמבור", category: "עיצוב הבית" }, { rank: 11, name: "שוקולד פרה", category: "מזון, משקאות וטואלטיקה" }, { rank: 12, name: "רב בריח", category: "עיצוב הבית" }, { rank: 13, name: "BUYME", category: "אפליקציות ושירותים" }, { rank: 14, name: "תפוצ'יפס", category: "מזון, משקאות וטואלטיקה" }, { rank: 15, name: "סנו", category: "מזון, משקאות וטואלטיקה" }, { rank: 16, name: "סולתם", category: "קמעונאות" }, { rank: 17, name: "KSP", category: "קמעונאות" }, { rank: 18, name: "טויוטה", category: "רכב" }, { rank: 19, name: "מי עדן", category: "מזון, משקאות וטואלטיקה" }, { rank: 20, name: "יוגורט דנונה", category: "מזון, משקאות וטואלטיקה" }, { rank: 21, name: "סטימצקי", category: "קמעונאות" }, { rank: 22, name: "ויקיפדיה", category: "רשתות חברתיות" }, { rank: 23, name: "סופר-פארם", category: "קמעונאות" }, { rank: 24, name: "תנובה", category: "יצרני מזון" }, { rank: 25, name: "יטבתה", category: "יצרני מזון" }, { rank: 26, name: "רב קו", category: "אפליקציות ושירותים" }, { rank: 27, name: "איקאה", category: "עיצוב הבית" }, { rank: 28, name: "שוקולד השחר", category: "מזון, משקאות וטואלטיקה" }, { rank: 29, name: "מילקי", category: "מזון, משקאות וטואלטיקה" }, { rank: 30, name: "Bosch", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 31, name: "מקס סטוק", category: "קמעונאות" }, { rank: 32, name: "Nike", category: "אופנה והנעלה" }, { rank: 33, name: "אדידס", category: "אופנה והנעלה" }, { rank: 34, name: "נביעות", category: "מזון, משקאות וטואלטיקה" }, { rank: 35, name: "Visa", category: "כרטיסי אשראי" }, { rank: 36, name: "LG", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 37, name: "Nutella", category: "מזון, משקאות וטואלטיקה" }, { rank: 38, name: "טרה", category: "יצרני מזון" }, { rank: 39, name: "אפל", category: "מחשבים וסלולר" }, { rank: 40, name: "בית חולים שיבא", category: "בריאות" }, { rank: 41, name: "קפה טורקי עלית", category: "מזון, משקאות וטואלטיקה" }, { rank: 42, name: "תדיראן", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 43, name: "Sony", category: "מחשבים וסלולר" }, { rank: 44, name: "פריגת", category: "מזון, משקאות וטואלטיקה" }, { rank: 45, name: "פינוק", category: "מזון, משקאות וטואלטיקה" }, { rank: 46, name: "שטראוס", category: "יצרני מזון" }, { rank: 47, name: "אסם נסטלה", category: "יצרני מזון" }, { rank: 48, name: "טבע נאות", category: "אופנה והנעלה" }, { rank: 49, name: "ויסוצקי", category: "מזון, משקאות וטואלטיקה" }, { rank: 50, name: "צומת ספרים", category: "קמעונאות" }, { rank: 51, name: "ביסלי", category: "מזון, משקאות וטואלטיקה" }, { rank: 52, name: "Netflix", category: "סטרימינג ומדיה" }, { rank: 53, name: "יד2", category: "נדל\"ן" }, { rank: 54, name: "קוקה קולה", category: "מזון, משקאות וטואלטיקה" }, { rank: 55, name: "ישראכרט", category: "כרטיסי אשראי" }, { rank: 56, name: "קפה נמס עלית", category: "מזון, משקאות וטואלטיקה" }, { rank: 57, name: "Nespresso", category: "מזון, משקאות וטואלטיקה" }, { rank: 58, name: "Dyson", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 59, name: "HP", category: "מחשבים וסלולר" }, { rank: 60, name: "מאזדה", category: "רכב" }, { rank: 61, name: "אל על", category: "תעופה" }, { rank: 62, name: "כאל", category: "כרטיסי אשראי" }, { rank: 63, name: "מרצדס", category: "רכב" }, { rank: 64, name: "ChatGPT", category: "בינה מלאכותית" }, { rank: 65, name: "פנגו", category: "אפליקציות ושירותים" }, { rank: 66, name: "קניוני עזריאלי", category: "נדל\"ן" }, { rank: 67, name: "אלקטרה", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 68, name: "H&M", category: "אופנה והנעלה" }, { rank: 69, name: "רולדין", category: "מסעדות ובתי קפה" }, { rank: 70, name: "BMW", category: "רכב" }, { rank: 71, name: "Bit", category: "אפליקציות ושירותים" }, { rank: 72, name: "עלי אקספרס", category: "אתרי קניות" }, { rank: 73, name: "כתר", category: "קמעונאות" }, { rank: 74, name: "פייבוקס", category: "אפליקציות ושירותים" }, { rank: 75, name: "פיצה האט", category: "מסעדות ובתי קפה" }, { rank: 76, name: "רמי לוי", category: "רשתות מזון" }, { rank: 77, name: "כאן 11", category: "עיתונות וחדשות" }, { rank: 78, name: "iPhone", category: "מחשבים וסלולר" }, { rank: 79, name: "מאסטרקארד", category: "כרטיסי אשראי" }, { rank: 80, name: "תמי 4", category: "מזון, משקאות וטואלטיקה" }, { rank: 81, name: "ביג", category: "נדל\"ן" }, { rank: 82, name: "שילב", category: "קמעונאות" }, { rank: 83, name: "ארומה", category: "מסעדות ובתי קפה" }, { rank: 84, name: "מחלבות גד", category: "יצרני מזון" }, { rank: 85, name: "נעמן", category: "עיצוב הבית" }, { rank: 86, name: "אריאל", category: "מזון, משקאות וטואלטיקה" }, { rank: 87, name: "טסטר צ'ויס", category: "מזון, משקאות וטואלטיקה" }, { rank: 88, name: "עמינח", category: "עיצוב הבית" }, { rank: 89, name: "בית חולים איכילוב", category: "בריאות" }, { rank: 90, name: "אושר עד", category: "רשתות מזון" }, { rank: 91, name: "פוקס הום", category: "עיצוב הבית" }, { rank: 92, name: "אסותא", category: "בריאות" }, { rank: 93, name: "Lenovo", category: "מחשבים וסלולר" }, { rank: 94, name: "אאודי", category: "רכב" }, { rank: 95, name: "יונדאי", category: "רכב" }, { rank: 96, name: "בזק", category: "ספקי תקשורת" }, { rank: 97, name: "פיליפס", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 98, name: "רכבת ישראל", category: "תחבורה" }, { rank: 99, name: "פוקס", category: "אופנה והנעלה" }, { rank: 100, name: "הראל", category: "ביטוח ופנסיה" }
-    ];
+        // Data
+        const top100Brands = [ { rank: 1, name: "Waze", category: "אפליקציות ושירותים" }, { rank: 2, name: "WhatsApp", category: "רשתות חברתיות" }, { rank: 3, name: "Google", category: "רשתות חברתיות" }, { rank: 4, name: "במבה", category: "מזון, משקאות וטואלטיקה" }, { rank: 5, name: "Google Maps", category: "אפליקציות ושירותים" }, { rank: 6, name: "Samsung", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 7, name: "Microsoft", category: "רשתות חברתיות" }, { rank: 8, name: "YouTube", category: "סטרימינג ומדיה" }, { rank: 9, name: "אנדרואיד", category: "מחשבים וסלולר" }, { rank: 10, name: "טמבור", category: "עיצוב הבית" }, { rank: 11, name: "שוקולד פרה", category: "מזון, משקאות וטואלטיקה" }, { rank: 12, name: "רב בריח", category: "עיצוב הבית" }, { rank: 13, name: "BUYME", category: "אפליקציות ושירותים" }, { rank: 14, name: "תפוצ'יפס", category: "מזון, משקאות וטואלטיקה" }, { rank: 15, name: "סנו", category: "מזון, משקאות וטואלטיקה" }, { rank: 16, name: "סולתם", category: "קמעונאות" }, { rank: 17, name: "KSP", category: "קמעונאות" }, { rank: 18, name: "טויוטה", category: "רכב" }, { rank: 19, name: "מי עדן", category: "מזון, משקאות וטואלטיקה" }, { rank: 20, name: "יוגורט דנונה", category: "מזון, משקאות וטואלטיקה" }, { rank: 21, name: "סטימצקי", category: "קמעונאות" }, { rank: 22, name: "ויקיפדיה", category: "רשתות חברתיות" }, { rank: 23, name: "סופר-פארם", category: "קמעונאות" }, { rank: 24, name: "תנובה", category: "יצרני מזון" }, { rank: 25, name: "יטבתה", category: "יצרני מזון" }, { rank: 26, name: "רב קו", category: "אפליקציות ושירותים" }, { rank: 27, name: "איקאה", category: "עיצוב הבית" }, { rank: 28, name: "שוקולד השחר", category: "מזון, משקאות וטואלטיקה" }, { rank: 29, name: "מילקי", category: "מזון, משקאות וטואלטיקה" }, { rank: 30, name: "Bosch", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 31, name: "מקס סטוק", category: "קמעונאות" }, { rank: 32, name: "Nike", category: "אופנה והנעלה" }, { rank: 33, name: "אדידס", category: "אופנה והנעלה" }, { rank: 34, name: "נביעות", category: "מזון, משקאות וטואלטיקה" }, { rank: 35, name: "Visa", category: "כרטיסי אשראי" }, { rank: 36, name: "LG", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 37, name: "Nutella", category: "מזון, משקאות וטואלטיקה" }, { rank: 38, name: "טרה", category: "יצרני מזון" }, { rank: 39, name: "אפל", category: "מחשבים וסלולר" }, { rank: 40, name: "בית חולים שיבא", category: "בריאות" }, { rank: 41, name: "קפה טורקי עלית", category: "מזון, משקאות וטואלטיקה" }, { rank: 42, name: "תדיראן", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 43, name: "Sony", category: "מחשבים וסלולר" }, { rank: 44, name: "פריגת", category: "מזון, משקאות וטואלטיקה" }, { rank: 45, name: "פינוק", category: "מזון, משקאות וטואלטיקה" }, { rank: 46, name: "שטראוס", category: "יצרני מזון" }, { rank: 47, name: "אסם נסטלה", category: "יצרני מזון" }, { rank: 48, name: "טבע נאות", category: "אופנה והנעלה" }, { rank: 49, name: "ויסוצקי", category: "מזון, משקאות וטואלטיקה" }, { rank: 50, name: "צומת ספרים", category: "קמעונאות" }, { rank: 51, name: "ביסלי", category: "מזון, משקאות וטואלטיקה" }, { rank: 52, name: "Netflix", category: "סטרימינג ומדיה" }, { rank: 53, name: "יד2", category: "נדל\"ן" }, { rank: 54, name: "קוקה קולה", category: "מזון, משקאות וטואלטיקה" }, { rank: 55, name: "ישראכרט", category: "כרטיסי אשראי" }, { rank: 56, name: "קפה נמס עלית", category: "מזון, משקאות וטואלטיקה" }, { rank: 57, name: "Nespresso", category: "מזון, משקאות וטואלטיקה" }, { rank: 58, name: "Dyson", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 59, name: "HP", category: "מחשבים וסלולר" }, { rank: 60, name: "מאזדה", category: "רכב" }, { rank: 61, name: "אל על", category: "תעופה" }, { rank: 62, name: "כאל", category: "כרטיסי אשראי" }, { rank: 63, name: "מרצדס", category: "רכב" }, { rank: 64, name: "ChatGPT", category: "בינה מלאכותית" }, { rank: 65, name: "פנגו", category: "אפליקציות ושירותים" }, { rank: 66, name: "קניוני עזריאלי", category: "נדל\"ן" }, { rank: 67, name: "אלקטרה", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 68, name: "H&M", category: "אופנה והנעלה" }, { rank: 69, name: "רולדין", category: "מסעדות ובתי קפה" }, { rank: 70, name: "BMW", category: "רכב" }, { rank: 71, name: "Bit", category: "אפליקציות ושירותים" }, { rank: 72, name: "עלי אקספרס", category: "אתרי קניות" }, { rank: 73, name: "כתר", category: "קמעונאות" }, { rank: 74, name: "פייבוקס", category: "אפליקציות ושירותים" }, { rank: 75, name: "פיצה האט", category: "מסעדות ובתי קפה" }, { rank: 76, name: "רמי לוי", category: "רשתות מזון" }, { rank: 77, name: "כאן 11", category: "עיתונות וחדשות" }, { rank: 78, name: "iPhone", category: "מחשבים וסלולר" }, { rank: 79, name: "מאסטרקארד", category: "כרטיסי אשראי" }, { rank: 80, name: "תמי 4", category: "מזון, משקאות וטואלטיקה" }, { rank: 81, name: "ביג", category: "נדל\"ן" }, { rank: 82, name: "שילב", category: "קמעונאות" }, { rank: 83, name: "ארומה", category: "מסעדות ובתי קפה" }, { rank: 84, name: "מחלבות גד", category: "יצרני מזון" }, { rank: 85, name: "נעמן", category: "עיצוב הבית" }, { rank: 86, name: "אריאל", category: "מזון, משקאות וטואלטיקה" }, { rank: 87, name: "טסטר צ'ויס", category: "מזון, משקאות וטואלטיקה" }, { rank: 88, name: "עמינח", category: "עיצוב הבית" }, { rank: 89, name: "בית חולים איכילוב", category: "בריאות" }, { rank: 90, name: "אושר עד", category: "רשתות מזון" }, { rank: 91, name: "פוקס הום", category: "עיצוב הבית" }, { rank: 92, name: "אסותא", category: "בריאות" }, { rank: 93, name: "Lenovo", category: "מחשבים וסלולר" }, { rank: 94, name: "אאודי", category: "רכב" }, { rank: 95, name: "יונדאי", category: "רכב" }, { rank: 96, name: "בזק", category: "ספקי תקשורת" }, { rank: 97, name: "פיליפס", category: "מוצרי חשמל ואלקטרוניקה" }, { rank: 98, name: "רכבת ישראל", category: "תחבורה" }, { rank: 99, name: "פוקס", category: "אופנה והנעלה" }, { rank: 100, name: "הראל", category: "ביטוח ופנסיה" } ];
+        const categoryData = { 'משרדי פרסום': [ { name: 'באומן בר ריבנאי', value: 11 }, { name: 'אדלר חומסקי', value: 7 }, { name: 'מקאן ת"א', value: 7 }, { name: 'ראובני פרידן', value: 7 }, { name: 'גיתם BBDO', value: 5 }, ], 'רכב': [ { name: 'טויוטה', value: 18 }, { name: 'מאזדה', value: 60 }, { name: 'מרצדס', value: 63 }, { name: 'BMW', value: 70 }, { name: 'אאודי', value: 94 }, { name: 'יונדאי', value: 95 }, ], 'בנקאות': [ { name: 'בנק לאומי', value: 156 }, { name: 'בנק הפועלים', value: 157 }, { name: 'מזרחי טפחות', value: 192 }, { name: 'בנק דיסקונט', value: 207 }, { name: 'הבינלאומי', value: 234 }, ], 'יצרני מזון': [ { name: 'תנובה', value: 24 }, { name: 'יטבתה', value: 25 }, { name: 'טרה', value: 38 }, { name: 'שטראוס', value: 46 }, { name: 'אסם נסטלה', value: 47 }, { name: 'מחלבות גד', value: 84 }, ], 'רשתות מזון': [ { name: 'רמי לוי', value: 76 }, { name: 'אושר עד', value: 90 }, { name: 'Yellow', value: 106 }, { name: 'שופרסל', value: 115 }, { name: 'חצי חינם', value: 152 }, ], 'אופנה והנעלה': [ { name: 'Nike', value: 32 }, { name: 'אדידס', value: 33 }, { name: 'טבע נאות', value: 48 }, { name: 'H&M', value: 68 }, { name: 'פוקס', value: 99 }, ], 'ספקי תקשורת': [ { name: 'בזק', value: 96 }, { name: 'פרטנר', value: 125 }, { name: 'פלאפון', value: 137 }, { name: 'סלקום', value: 175 }, { name: 'הוט', value: 235 }, ], 'עיצוב הבית': [ { name: 'טמבור', value: 10 }, { name: 'רב בריח', value: 12 }, { name: 'איקאה', value: 27 }, { name: 'נעמן', value: 85 }, { name: 'עמינח', value: 88 }, ], 'נדלן': [ { name: 'יד2', value: 53 }, { name: 'קניוני עזריאלי', value: 66 }, { name: 'ביג', value: 81 }, { name: 'קניוני עופר', value: 111 }, { name: 'קניוני G', value: 216 }, ] };
 
-    const categoryData = {
-        'משרדי פרסום': [ { name: 'באומן בר ריבנאי', value: 11 }, { name: 'אדלר חומסקי', value: 7 }, { name: 'מקאן ת"א', value: 7 }, { name: 'ראובני פרידן', value: 7 }, { name: 'גיתם BBDO', value: 5 }, ], 'רכב': [ { name: 'טויוטה', value: 18 }, { name: 'מאזדה', value: 60 }, { name: 'מרצדס', value: 63 }, { name: 'BMW', value: 70 }, { name: 'אאודי', value: 94 }, { name: 'יונדאי', value: 95 }, ], 'בנקאות': [ { name: 'בנק לאומי', value: 156 }, { name: 'בנק הפועלים', value: 157 }, { name: 'מזרחי טפחות', value: 192 }, { name: 'בנק דיסקונט', value: 207 }, { name: 'הבינלאומי', value: 234 }, ], 'יצרני מזון': [ { name: 'תנובה', value: 24 }, { name: 'יטבתה', value: 25 }, { name: 'טרה', value: 38 }, { name: 'שטראוס', value: 46 }, { name: 'אסם נסטלה', value: 47 }, { name: 'מחלבות גד', value: 84 }, ], 'רשתות מזון': [ { name: 'רמי לוי', value: 76 }, { name: 'אושר עד', value: 90 }, { name: 'Yellow', value: 106 }, { name: 'שופרסל', value: 115 }, { name: 'חצי חינם', value: 152 }, ], 'אופנה והנעלה': [ { name: 'Nike', value: 32 }, { name: 'אדידס', value: 33 }, { name: 'טבע נאות', value: 48 }, { name: 'H&M', value: 68 }, { name: 'פוקס', value: 99 }, ], 'ספקי תקשורת': [ { name: 'בזק', value: 96 }, { name: 'פרטנר', value: 125 }, { name: 'פלאפון', value: 137 }, { name: 'סלקום', value: 175 }, { name: 'הוט', value: 235 }, ], 'עיצוב הבית': [ { name: 'טמבור', value: 10 }, { name: 'רב בריח', value: 12 }, { name: 'איקאה', value: 27 }, { name: 'נעמן', value: 85 }, { name: 'עמינח', value: 88 }, ], 'נדלן': [ { name: 'יד2', value: 53 }, { name: 'קניוני עזריאלי', value: 66 }, { name: 'ביג', value: 81 }, { name: 'קניוני עופר', value: 111 }, { name: 'קניוני G', value: 216 }, ]
-    };
+        // Populate Table and Mobile Cards
+        const tableBody = document.getElementById('tableBody');
+        const mobileCardView = document.getElementById('mobileCardView');
+        top100Brands.forEach(brand => {
+            const row = document.createElement('tr');
+            row.className = 'border-b border-zinc-200 hover:bg-zinc-50';
+            row.innerHTML = `<td class="p-4 font-bold text-lg text-zinc-800">${brand.rank}</td><td class="p-4 font-semibold text-zinc-900">${brand.name}</td><td class="p-4 text-zinc-600">${brand.category}</td>`;
+            tableBody.appendChild(row);
 
-    // Populate Table and Mobile Cards
-    const tableBody = document.getElementById('tableBody');
-    const mobileCardView = document.getElementById('mobileCardView');
-    top100Brands.forEach(brand => {
-        // Desktop row
-        const row = document.createElement('tr');
-        row.className = 'border-b border-zinc-200 hover:bg-zinc-50';
-        row.innerHTML = `
-            <td class="p-4 font-bold text-lg text-zinc-800">${brand.rank}</td>
-            <td class="p-4 font-semibold text-zinc-900">${brand.name}</td>
-            <td class="p-4 text-zinc-600">${brand.category}</td>
-        `;
-        tableBody.appendChild(row);
-
-        // Mobile card
-        const card = document.createElement('div');
-        card.className = 'bg-white p-4 rounded-lg border border-zinc-200 flex justify-between items-center';
-        card.innerHTML = `
-            <div>
-                <div class="font-bold text-zinc-900">${brand.name}</div>
-                <div class="text-sm text-zinc-500">${brand.category}</div>
-            </div>
-            <div class="text-2xl font-extrabold text-blue-600">${brand.rank}</div>
-        `;
-        mobileCardView.appendChild(card);
-    });
-
-    // Filter Table and Mobile Cards
-    function filterTable() {
-        const input = document.getElementById('searchInput');
-        const filter = input.value.toLowerCase();
-        
-        // Filter desktop table
-        const table = document.getElementById('brandsTable');
-        const tr = table.getElementsByTagName('tr');
-        for (let i = 1; i < tr.length; i++) {
-            let td = tr[i].getElementsByTagName('td')[1];
-            if (td) {
-                let txtValue = td.textContent || td.innerText;
-                tr[i].style.display = txtValue.toLowerCase().indexOf(filter) > -1 ? "" : "none";
-            }
-        }
-
-        // Filter mobile cards
-        const cards = mobileCardView.getElementsByTagName('div');
-        for (let i = 0; i < cards.length; i++) {
-            if (cards[i].classList.contains('bg-white')) { // Target only parent cards
-                let brandNameDiv = cards[i].querySelector('.font-bold');
-                if (brandNameDiv) {
-                    let txtValue = brandNameDiv.textContent || brandNameDiv.innerText;
-                    cards[i].style.display = txtValue.toLowerCase().indexOf(filter) > -1 ? "flex" : "none";
-                }
-            }
-        }
-    }
-
-    // Category Chart
-    const ctx = document.getElementById('categoryChart').getContext('2d');
-    let categoryChart;
-
-    function updateChart(category) {
-        const data = categoryData[category];
-        if (!data) return;
-        
-        const isAdvertising = category === 'משרדי פרסום';
-        
-        const sortedData = [...data].sort((a, b) => isAdvertising ? b.value - a.value : a.value - b.value);
-
-        const labels = sortedData.map(b => `${b.name} (${b.value})`);
-        const values = sortedData.map(b => b.value);
-        
-        if (categoryChart) {
-            categoryChart.destroy();
-        }
-
-        categoryChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: isAdvertising ? 'מספר מותגים בטופ 100' : 'דירוג כללי',
-                    data: values,
-                    backgroundColor: 'rgba(37, 99, 235, 0.8)',
-                    borderColor: 'rgba(37, 99, 235, 1)',
-                    borderWidth: 1,
-                    borderRadius: 5
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        reverse: !isAdvertising,
-                        grid: { color: 'rgba(0, 0, 0, 0.05)' },
-                        ticks: { color: '#52525b', font: { family: "'Assistant', sans-serif", weight: '600' } }
-                    },
-                    y: {
-                        grid: { display: false },
-                        ticks: { color: '#18181b', font: { family: "'Assistant', sans-serif", size: 14, weight: '600' } }
-                    }
-                },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#18181b',
-                        titleColor: '#f4f4f5',
-                        bodyColor: '#d4d4d8',
-                        bodyFont: { family: "'Assistant', sans-serif" },
-                        titleFont: { family: "'Assistant', sans-serif" }
-                    }
-                }
-            }
+            const card = document.createElement('div');
+            card.className = 'bg-white p-4 rounded-lg border border-zinc-200 flex justify-between items-center';
+            card.innerHTML = `<div><div class="font-bold text-zinc-900">${brand.name}</div><div class="text-sm text-zinc-500">${brand.category}</div></div><div class="text-2xl font-extrabold text-indigo-600">${brand.rank}</div>`;
+            mobileCardView.appendChild(card);
         });
-    }
 
-    document.getElementById('categorySelector').addEventListener('change', (e) => {
-        updateChart(e.target.value);
-    });
+        // Search Functionality
+        const searchInput = document.querySelector('#full-list input');
+        window.filterContent = function() {
+            const filter = searchInput.value.toLowerCase();
+            
+            // Filter desktop table
+            const tableRows = document.querySelectorAll('#tableBody tr');
+            tableRows.forEach(row => {
+                const brandName = row.cells[1].textContent.toLowerCase();
+                row.style.display = brandName.includes(filter) ? "" : "none";
+            });
 
-    // Initial chart load & animations
-    window.onload = () => {
-        updateChart('משרדי פרסום');
+            // Filter mobile cards
+            const mobileCards = document.querySelectorAll('#mobileCardView > div');
+            mobileCards.forEach(card => {
+                const brandName = card.querySelector('.font-bold').textContent.toLowerCase();
+                card.style.display = brandName.includes(filter) ? "flex" : "none";
+            });
+        };
+        searchInput.addEventListener('keyup', filterContent);
+
+
+        // Category Chart
+        const ctx = document.getElementById('categoryChart').getContext('2d');
+        let categoryChart;
+        function updateChart(category) {
+            const data = categoryData[category];
+            if (!data) return;
+            const isAdvertising = category === 'משרדי פרסום';
+            const sortedData = [...data].sort((a, b) => isAdvertising ? b.value - a.value : a.value - b.value);
+            const labels = sortedData.map(b => `${b.name} (${b.value})`);
+            const values = sortedData.map(b => b.value);
+            if (categoryChart) categoryChart.destroy();
+            categoryChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: isAdvertising ? 'מספר מותגים בטופ 100' : 'דירוג כללי',
+                        data: values,
+                        backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { beginAtZero: true, reverse: !isAdvertising, grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { color: '#52525b', font: { family: "'Assistant', sans-serif", weight: '600' } } },
+                        y: { grid: { display: false }, ticks: { color: '#18181b', font: { family: "'Assistant', sans-serif", size: 14, weight: '600' } } }
+                    },
+                    plugins: { legend: { display: false }, tooltip: { backgroundColor: '#18181b', titleColor: '#f4f4f5', bodyColor: '#d4d4d8', bodyFont: { family: "'Assistant', sans-serif" }, titleFont: { family: "'Assistant', sans-serif" } } }
+                }
+            });
+        }
+        document.getElementById('categorySelector').addEventListener('change', (e) => updateChart(e.target.value));
+
+        // Animations & Nav Logic
         gsap.utils.toArray('.animated-element').forEach(el => {
             gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 90%',
-                    toggleActions: 'play none none none'
-                },
-                duration: 0.8,
-                opacity: 0,
-                y: 40,
-                ease: 'power3.out'
+                scrollTrigger: { trigger: el, start: 'top 95%', toggleActions: 'play none none none' },
+                duration: 0.8, opacity: 0, y: 40, ease: 'power3.out'
             });
         });
-    };
 
+        const sections = document.querySelectorAll('main > section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        sections.forEach(section => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top center',
+                end: 'bottom center',
+                onToggle: self => {
+                    const link = document.querySelector(`a[href="#${section.id}"]`);
+                    if (self.isActive && link) {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Initial load
+        updateChart('משרדי פרסום');
+    });
 </script>
 
 </body>
